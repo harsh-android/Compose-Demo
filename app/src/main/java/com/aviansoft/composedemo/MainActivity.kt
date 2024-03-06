@@ -46,7 +46,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    App()
                 }
             }
         }
@@ -55,53 +54,22 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun App() {
-    val navController = rememberNavController()
+fun CGPA() {
 
-    NavHost(navController = navController, startDestination = "Home") {
-        composable(route = "Home") {
-            Greeting(navController)
-        }
-       
+    Column {
+        Text(text = "CGPA Calculator\nAapka Bhavishay")
     }
-}
 
-@Composable
-fun Greeting(navController: NavController, modifier: Modifier = Modifier) {
-
-    var image = painterResource(id = R.drawable.ic_logo)
-
-//    next(navController)
-
-    Box(modifier = Modifier)
-    Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Image(
-            painter = image, contentDescription = null, modifier = Modifier
-                .height(200.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        Image(
-            painter = image, contentDescription = null, modifier = Modifier
-                .height(200.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-
-
-    }
 }
 
 
-
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun GreetingPreview() {
+fun CGPAPreview() {
+
     ComposeDemoTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-
-            App()
-        }
+        CGPA()
     }
+    
 }
+
