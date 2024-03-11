@@ -24,6 +24,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.aviansoft.composedemo.ui.theme.ComposeDemoTheme
 
+
+// TODO This Demo is Not Fix working on IT
+
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +66,6 @@ fun CGPA() {
     }
 
 }
-
 
 
 
