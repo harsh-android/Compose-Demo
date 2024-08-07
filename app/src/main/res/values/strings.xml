@@ -43,4 +43,24 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <string name="trending">TRENDING</string>
+    <string name="all_brands">ALL BRANDS</string>
+
+    <string name="electric_cars">ELECTRIC CARS</string>
+    <string name="car_by_budget">CARS BY BUDGET</string>
+
+    <string name="blog_redirect"><u><b>read more about this blog</b></u></string>
+    <string name="news_redirect"><u><b>learn more</b></u></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="demo_min_label">min</string>
+    <string name="demo_max_label">max</string>
+    <string name="clear_filter"><u>Clear Filter</u></string>
+    <string name="skip"><u>Skip</u></string>
+    <string name="delete_leagel">Please be aware that on processing for account deletion, all your data, including personal information, saved preferences, and other associated content, will be permanently removed from our database. This action is irreversible and cannot be undone. Still, if you are sure and wish to delete your account, please confirm your decision. For any assistance or concerns, feel free to contact our support team at dpo@aviansoft.in before proceeding.</string>
+    <string name="verify"><u>Verify</u></string>
+    <string name="title_activity_main">MainActivity</string>
+
+
 </resources>

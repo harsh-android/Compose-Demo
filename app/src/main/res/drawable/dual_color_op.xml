@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/_50sdp"
+    android:height="@dimen/_25sdp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Rectangle background -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M0,0 L100,0 L100,100 L0,100 Z" />
+
+    <!-- Horizontal split line -->
+    <!--    <path-->
+    <!--        android:fillColor="#808080"-->
+    <!--    android:pathData="M20,50 L80,50 Z"/>-->
+
+    <!-- Vertical split line -->
+    <!--    <path-->
+    <!--        android:fillColor="#808080"-->
+    <!--    android:pathData="M50,20 L50,80 Z"/>-->
+
+    <!-- Cross lines -->
+    <path
+        android:fillColor="@android:color/holo_red_dark"
+        android:pathData="M60,0 L100,0 L100,100 L40,100 Z" />
+    <!--    <path-->
+    <!--        android:fillColor="#808080" -->
+    <!--    android:pathData="M0,40 L100,40 L100,60 L0,60 Z"/>-->
+
+</vector>

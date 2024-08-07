@@ -8,5 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="main_dark">#1C5FE2</color>
+    <color name="main_light">#0FC2EB</color>
+    <color name="rating">#FF9800</color>
+    <color name="main_back">#EFEFEF</color>
+    <color name="line_back">#4DD3D3D3</color>
 
+    <color name="shade1">#013351</color>
+    <color name="shade2">#00B6FE</color>
+    <color name="shade3">#0177AA</color>
+    <color name="primgradient1">#013351</color>
+    <color name="primgradient2">#00B6FE</color>
+    <color name="ev_green">#95D591</color>
+    <color name="placeholder_color">#E0E0E0</color>
 </resources>

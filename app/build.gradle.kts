@@ -76,4 +76,7 @@ dependencies {
 
     // Splash API
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("network.chaintech:sdp-ssp-compose-multiplatform:1.0.4")
+    implementation("com.intuit.sdp:sdp-android:1.1.1")
 }
