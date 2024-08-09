@@ -71,7 +71,7 @@ fun NavigationGraph(startDestination: String = "splash_screen") {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination) {
         composable("splash_screen") { SplashPage(navController) }
-        composable("main_screen") { MainActivity() }
+        composable("main_screen") { MainContent() }
     }
 }
 
