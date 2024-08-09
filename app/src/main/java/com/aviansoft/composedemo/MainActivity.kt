@@ -177,14 +177,14 @@ fun RowScope.AddItem(
     ) {
         Row(
             modifier = Modifier
-                .padding(start = 10.sdp, end = 10.sdp, top = 5.sdp, bottom = 5.sdp)
+                .padding(start = 10.sdp, end = 10.sdp, top = 5.sdp, bottom = 5.sdp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
 
 
             //* if menu title : Report means we will show badge
-            if (screen.label == "Report") { // with badge
+            if (screen.label == "Wishlist") { // with badge
                 BadgedBox(badge = { Badge { Text("6") } }) {
                     Icon(
                         modifier = Modifier.size(17.sdp),
