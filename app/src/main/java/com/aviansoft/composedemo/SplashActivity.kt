@@ -124,8 +124,6 @@ fun SplashPage(navController : NavHostController) {
 
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun SplashPreview() {
@@ -134,3 +132,4 @@ fun SplashPreview() {
 
     }
 }
+
