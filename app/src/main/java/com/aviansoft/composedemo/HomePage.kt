@@ -61,16 +61,28 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.viewinterop.AndroidView
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.bumptech.glide.Glide
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import java.util.UUID
 import kotlin.math.absoluteValue
@@ -90,133 +102,64 @@ class HomePage {
                 Column {
                     HomeHeader()
                     HomeHeadBanner()
+
+                    Text(text = "Hello")
                 }
             }
         }
 
         private @Composable
         fun HomeHeadBanner() {
-            ImageSliderTheme {
 
-                ViewPagerSlider()
-            }
-        }
+            val pagerState = rememberPagerState(4)
+            val coroutineScope = rememberCoroutineScope()
 
-        @ExperimentalPagerApi
-        @Composable
-        fun ViewPagerSlider(){
-
-            val pagerState  = rememberPagerState(
-                pageCount = imageList.size,
-                initialPage =  2
-            )
-
-            LaunchedEffect(Unit){
-                while (true){
-                    yield()
-                    delay(4000)
-                    pagerState.animateScrollToPage(
-                        page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-                        animationSpec = tween(600)
-                    )
+            // Auto scroll the pager
+            LaunchedEffect(pagerState) {
+                while (true) {
+                    delay(3000L)
+                    val nextPage = (pagerState.currentPage + 1) % imageList.size
+                    pagerState.animateScrollToPage(nextPage)
                 }
             }
 
-            Column(modifier = Modifier .background(Color.White)) {
+            HorizontalPager(
 
-                HorizontalPager(state = pagerState,
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) { page ->
+                AsyncImage(
+                    model = imageList[page].url,
+                    contentDescription = "Sample Image",
                     modifier = Modifier
-                ) { page ->
-                    Card(modifier = Modifier
-                        .graphicsLayer {
-                            val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-
-                            lerp(
-                                start = 0.85f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            ).also { scale ->
-                                scaleX = scale
-                                scaleY = scale
-
-                            }
-                            alpha = lerp(
-                                start = 0.5f,
-                                stop = 1f,
-                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                            )
-
-                        }
-                        .fillMaxWidth(),
-                    ) {
-
-                        val newKids = imageList[page]
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White)
-                        ) {
-                            AndroidView(
-                                factory = { context ->
-                                    ImageView(context).apply {
-                                        layoutParams = ViewGroup.LayoutParams(
-                                            ViewGroup.LayoutParams.MATCH_PARENT,
-                                            ViewGroup.LayoutParams.MATCH_PARENT
-                                        )
-                                        scaleType = ImageView.ScaleType.CENTER_CROP
-                                    }
-                                },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(200.dp),
-                                update = { imageView ->
-                                    Glide.with(imageView.context)
-                                        .load(newKids.url)
-                                        .into(imageView)
-                                }
-                            )
-
-                        }
-
-
-                    }
-
-                }
-
-                //Horizontal dot indicator
-                HorizontalPagerIndicator(
-                    pagerState = pagerState,modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .height(200.dp),
+//                            .graphicsLayer(alpha = 1f - alpha),
+                    contentScale = ContentScale.FillWidth
                 )
-
             }
 
+
         }
+
 
         val imageList = arrayListOf(
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/866/500/500.jpg?hmac=FOptChXpmOmfR5SpiL2pp74Yadf1T_bRhBF1wJZa9hg"
+                "https://static.caronphone.com/public/Banner/72/72_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/270/500/500.jpg?hmac=MK7XNrBrZ73QsthvGaAkiNoTl65ZDlUhEO-6fnd-ZnY"
+                "https://static.caronphone.com/public/Banner/57/57_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/320/500/500.jpg?hmac=2iE7TIF9kIqQOHrIUPOJx2wP1CJewQIZBeMLIRrm74s"
+                "https://static.caronphone.com/public/Banner/58/58_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/798/500/500.jpg?hmac=Bmzk6g3m8sUiEVHfJWBscr2DUg8Vd2QhN7igHBXLLfo"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/95/500/500.jpg?hmac=0aldBQ7cQN5D_qyamlSP5j51o-Og4gRxSq4AYvnKk2U"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/778/500/500.jpg?hmac=jZLZ6WV_OGRxAIIYPk7vGRabcAGAILzxVxhqSH9uLas"
+                "https://static.caronphone.com/public/Banner/59/59_mob.webp"
             )
         )
         data class ImageItem(

@@ -81,9 +81,7 @@ dependencies {
     implementation("network.chaintech:sdp-ssp-compose-multiplatform:1.0.4")
     implementation("com.intuit.sdp:sdp-android:1.1.1")
 
-
-    // Image Slider
-    implementation ("io.coil-kt:coil-compose:1.4.0")
+    implementation ("io.coil-kt:coil-compose:2.4.0")
 
 
     // Paging Compose
