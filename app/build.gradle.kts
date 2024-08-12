@@ -77,8 +77,24 @@ dependencies {
     // Splash API
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    // SDP & SSP
     implementation("network.chaintech:sdp-ssp-compose-multiplatform:1.0.4")
     implementation("com.intuit.sdp:sdp-android:1.1.1")
 
 
+    // Image Slider
+    implementation ("io.coil-kt:coil-compose:1.4.0")
+
+
+    // Paging Compose
+    implementation ("com.google.accompanist:accompanist-pager:0.13.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.13.0")
+
+    // Glide Image Loader
+    implementation("com.github.bumptech.glide:glide:4.15.1") // Replace with the latest version
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+
+
 }
+
