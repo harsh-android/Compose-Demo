@@ -92,7 +92,14 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1") // Replace with the latest version
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
+    //    Retrofit Android
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    // Coroutines for asynchronous programming
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
 
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.6.8")
 }
 

@@ -1,14 +1,24 @@
 package com.aviansoft.composedemo.Utils
 
+import android.annotation.SuppressLint
 import androidx.compose.ui.geometry.Offset
+import java.util.Base64
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Utils {
+class Util {
 
 
     companion object {
+
+
+        //        API
+        var BASE_URL = "aHR0cHM6Ly9jb3BhcGkuY29tL2FwaS8="
+        val OTP_BASE_URL = ""
+        val countryCode = "91"
+
+
         fun GradientWithAngleExample(angleDegrees: Float): Pair<Offset, Offset> {
             // Convert angle to radians
             val angleRadians = angleDegrees * (PI / 180.0)
@@ -41,5 +51,12 @@ class Utils {
 
             return Pair(startOffset, endOffset)
         }
+
+        @SuppressLint("NewApi")
+        fun decodeFromBase64(base64: String): String {
+            val bytes = Base64.getDecoder().decode(base64)
+            return String(bytes, Charsets.UTF_8)
+        }
+
     }
 }

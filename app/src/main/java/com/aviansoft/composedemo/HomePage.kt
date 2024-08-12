@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -32,10 +31,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,41 +48,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.aviansoft.composedemo.Utils.Utils
+import com.aviansoft.composedemo.Utils.Util
 import com.aviansoft.composedemo.ui.theme.ComposeDemoTheme
-import com.aviansoft.composedemo.ui.theme.ImageSliderTheme
 import com.aviansoft.composedemo.ui.theme.PrimGradient1
 import com.aviansoft.composedemo.ui.theme.PrimGradient2
 import com.google.accompanist.pager.ExperimentalPagerApi
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Card
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.util.lerp
-import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import com.bumptech.glide.Glide
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.yield
 import java.util.UUID
-import kotlin.math.absoluteValue
 
 class HomePage {
 
@@ -95,6 +71,8 @@ class HomePage {
         @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         fun HomeScreen() {
+
+
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
@@ -103,10 +81,14 @@ class HomePage {
                     HomeHeader()
                     HomeHeadBanner()
 
+
+
                     Text(text = "Hello")
                 }
             }
         }
+
+//        TODO Head Banner Start
 
         private @Composable
         fun HomeHeadBanner() {
@@ -143,7 +125,6 @@ class HomePage {
 
         }
 
-
         val imageList = arrayListOf(
             ImageItem(
                 UUID.randomUUID().toString(),
@@ -167,6 +148,10 @@ class HomePage {
             val url : String
         )
 
+//        Head Banner End
+
+
+//        TODO Heder Start
 
         @ExperimentalMaterial3Api
         private @Composable
@@ -180,7 +165,7 @@ class HomePage {
                         // Update the size of the box
                         val size = coordinates.size
                         boxSize = Offset(size.width.toFloat(), size.height.toFloat())
-                        val (startOffset, endOffset) = Utils.GradientWithAngleExample(90f)
+                        val (startOffset, endOffset) = Util.GradientWithAngleExample(90f)
                     }
                     .wrapContentHeight()
                     .background(
@@ -189,8 +174,8 @@ class HomePage {
                                 PrimGradient1,
                                 PrimGradient2
                             ),
-                            start = Utils.getGradientOffsets(90f, boxSize.x, boxSize.y).first,
-                            end = Utils.getGradientOffsets(90f, boxSize.x, boxSize.y).second
+                            start = Util.getGradientOffsets(90f, boxSize.x, boxSize.y).first,
+                            end = Util.getGradientOffsets(90f, boxSize.x, boxSize.y).second
                         )
                     )
             ) {
@@ -295,6 +280,8 @@ class HomePage {
             }
 
         }
+
+//        Header End
 
     }
 

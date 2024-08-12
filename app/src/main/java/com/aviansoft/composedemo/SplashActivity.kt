@@ -1,12 +1,6 @@
 package com.aviansoft.composedemo
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsetsController
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -28,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -36,7 +29,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.aviansoft.composedemo.Utils.Utils
+import com.aviansoft.composedemo.Utils.Util
 import com.aviansoft.composedemo.ui.theme.ComposeDemoTheme
 import com.aviansoft.composedemo.ui.theme.PrimGradient1
 import com.aviansoft.composedemo.ui.theme.PrimGradient2
@@ -97,7 +90,7 @@ fun SplashPage(navController : NavHostController) {
                 // Update the size of the box
                 val size = coordinates.size
                 boxSize = Offset(size.width.toFloat(), size.height.toFloat())
-                val (startOffset, endOffset) = Utils.GradientWithAngleExample(90f)
+                val (startOffset, endOffset) = Util.GradientWithAngleExample(90f)
             }
             .background(
                 brush = Brush.linearGradient(
@@ -105,8 +98,8 @@ fun SplashPage(navController : NavHostController) {
                         PrimGradient1,
                         PrimGradient2
                     ),
-                    start = Utils.getGradientOffsets(90f, boxSize.x, boxSize.y).first,
-                    end = Utils.getGradientOffsets(90f, boxSize.x, boxSize.y).second
+                    start = Util.getGradientOffsets(90f, boxSize.x, boxSize.y).first,
+                    end = Util.getGradientOffsets(90f, boxSize.x, boxSize.y).second
                 )
             ),
         horizontalArrangement = Arrangement.Center,
