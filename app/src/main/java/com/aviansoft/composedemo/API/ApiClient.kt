@@ -1,40 +1,42 @@
 package com.aviansoft.composedemo.API
 
-import android.content.Context
 import com.aviansoft.composedemo.Utils.Util
 import com.aviansoft.composedemo.Utils.Util.Companion.BASE_URL
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-
+@Module
+@InstallIn(SingletonComponent::class)
 public class ApiClient {
 
-    companion object {
 
-        lateinit var retrofit: Retrofit
+    @Provides
+    @Singleton
+    fun getApiClient(): Retrofit {
 
+        val client: OkHttpClient =
+            OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS) // Adjust as needed
+                .readTimeout(60, TimeUnit.SECONDS) // Adjust as needed
+                .writeTimeout(60, TimeUnit.SECONDS) // Adjust as needed
+                .build()
 
-        public fun getApiClient(): Retrofit {
+        var retrofit = Retrofit.Builder().baseUrl(Util.decodeFromBase64(BASE_URL)).client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
 
-//            val client = MTLSHelper.createMTLSClient(context)
+        return retrofit
+    }
 
-
-            // Create OkHttpClient with the configured SSLContext
-            val client: OkHttpClient =
-                OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS) // Adjust as needed
-                    .readTimeout(60, TimeUnit.SECONDS) // Adjust as needed
-                    .writeTimeout(60, TimeUnit.SECONDS) // Adjust as needed
-                    .build()
-
-            retrofit = Retrofit.Builder().baseUrl(Util.decodeFromBase64(BASE_URL)).client(client)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-
-            return retrofit
-        }
-
-
+    @Provides
+    @Singleton
+    fun provideApi(retrofit: Retrofit): ApiInterface {
+        return retrofit.create(ApiInterface::class.java)
     }
 
 }

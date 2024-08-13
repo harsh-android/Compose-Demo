@@ -48,6 +48,7 @@ import com.aviansoft.composedemo.Model.WarningLightModel
 import com.aviansoft.composedemo.Model.WishAddRemoveModel
 import com.aviansoft.composedemo.Model.WishlistModel
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -60,7 +61,13 @@ interface ApiInterface {
 
     @FormUrlEncoded
     @POST("banners")
-    fun getBanner(
+    suspend fun getBanner(
+        @Field("type") type: String
+    ): Response<HeadBannerModel>
+
+    @FormUrlEncoded
+    @POST("banners")
+    fun getBanner1(
         @Field("type") type: String
     ): Call<HeadBannerModel>
 

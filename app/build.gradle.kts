@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.8.10-1.0.9"
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -48,6 +50,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
 }
 
 dependencies {
@@ -101,5 +105,10 @@ dependencies {
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     implementation ("androidx.compose.runtime:runtime-livedata:1.6.8")
+
+
+    implementation("com.google.dagger:hilt-android:2.48")
+//    ksp("com.google.dagger:hilt-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
 

@@ -2,6 +2,8 @@
 
 package com.aviansoft.composedemo
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -59,18 +61,35 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
+import com.aviansoft.composedemo.API.ApiInterface
 import com.google.accompanist.pager.*
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.UUID
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomePage {
 
     companion object {
 
+        @Inject
+        lateinit var api : ApiInterface
 
+        private val TAG = "HomePage"
+
+
+        @SuppressLint("CoroutineCreationDuringComposition")
         @OptIn(ExperimentalMaterial3Api::class)
         @Composable
         fun HomeScreen() {
+
+            GlobalScope.launch {
+                var response = api.getBanner("Head Banner")
+                Log.e(TAG, "HomeScreen: ${response.body()}" )
+            }
 
 
             Surface(
