@@ -63,7 +63,7 @@ interface ApiInterface {
     @POST("banners")
     suspend fun getBanner(
         @Field("type") type: String
-    ): Response<HeadBannerModel>
+    ): HeadBannerModel
 
     @FormUrlEncoded
     @POST("banners")

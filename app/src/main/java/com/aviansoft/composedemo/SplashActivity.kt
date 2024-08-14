@@ -33,6 +33,7 @@ import com.aviansoft.composedemo.Utils.Util
 import com.aviansoft.composedemo.ui.theme.ComposeDemoTheme
 import com.aviansoft.composedemo.ui.theme.PrimGradient1
 import com.aviansoft.composedemo.ui.theme.PrimGradient2
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import network.chaintech.sdpcomposemultiplatform.sdp
 
@@ -40,6 +41,7 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 // TODO This Demo is Not Fix working on IT
 
 
+@AndroidEntryPoint
 class SplashActivity() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

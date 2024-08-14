@@ -58,22 +58,26 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.layout.ContentScale
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.aviansoft.composedemo.API.ApiInterface
+import com.aviansoft.composedemo.API.viewModel.MainViewModel
 import com.google.accompanist.pager.*
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class HomePage {
 
-    companion object {
+//class HomePage {
+//
+//    companion object {
 
         @Inject
         lateinit var api : ApiInterface
@@ -86,10 +90,6 @@ class HomePage {
         @Composable
         fun HomeScreen() {
 
-            GlobalScope.launch {
-                var response = api.getBanner("Head Banner")
-                Log.e(TAG, "HomeScreen: ${response.body()}" )
-            }
 
 
             Surface(
@@ -111,15 +111,18 @@ class HomePage {
 
         private @Composable
         fun HomeHeadBanner() {
+            var viewModel: MainViewModel = hiltViewModel()
+            val headBanners = viewModel.headBanners.collectAsState().value
 
             val pagerState = rememberPagerState(4)
             val coroutineScope = rememberCoroutineScope()
 
             // Auto scroll the pager
             LaunchedEffect(pagerState) {
+                viewModel.fetchHeadBanners("Head Banner")
                 while (true) {
                     delay(3000L)
-                    val nextPage = (pagerState.currentPage + 1) % imageList.size
+                    val nextPage = (pagerState.currentPage + 1) % headBanners?.data?.size!!
                     pagerState.animateScrollToPage(nextPage)
                 }
             }
@@ -131,7 +134,7 @@ class HomePage {
                     .fillMaxWidth()
             ) { page ->
                 AsyncImage(
-                    model = imageList[page].url,
+                    model = headBanners?.data?.get(page)?.bannerImage,
                     contentDescription = "Sample Image",
                     modifier = Modifier
                         .fillMaxWidth()
@@ -147,19 +150,19 @@ class HomePage {
         val imageList = arrayListOf(
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/72/72_mob.webp"
+                "https://static.caronphone.com/public/Banner/22/22_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/57/57_mob.webp"
+                "https://static.caronphone.com/public/Banner/67/67_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/58/58_mob.webp"
+                "https://static.caronphone.com/public/Banner/38/38_mob.webp"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/59/59_mob.webp"
+                "https://static.caronphone.com/public/Banner/29/29_mob.webp"
             )
         )
         data class ImageItem(
@@ -302,14 +305,14 @@ class HomePage {
 
 //        Header End
 
-    }
+//    }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun GreetingPreview() {
-        ComposeDemoTheme {
-            HomeScreen()
-        }
-    }
-}
+//    @Preview(showBackground = true)
+//    @Composable
+//    fun GreetingPreview() {
+//        ComposeDemoTheme {
+//            HomeScreen()
+//        }
+//    }
+//}
 
