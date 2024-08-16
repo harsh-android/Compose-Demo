@@ -61,9 +61,9 @@ interface ApiInterface {
 
     @FormUrlEncoded
     @POST("banners")
-    suspend fun getBanner(
+    fun getBanner(
         @Field("type") type: String
-    ): HeadBannerModel
+    ): Call<HeadBannerModel>
 
     @FormUrlEncoded
     @POST("banners")

@@ -59,9 +59,11 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.aviansoft.composedemo.API.ApiInterface
 import com.aviansoft.composedemo.API.viewModel.MainViewModel
@@ -111,18 +113,18 @@ import javax.inject.Inject
 
         private @Composable
         fun HomeHeadBanner() {
-            var viewModel: MainViewModel = hiltViewModel()
-            val headBanners = viewModel.headBanners.collectAsState().value
 
+            var viewModel: MainViewModel = viewModel()
+            val banners by viewModel.data.observeAsState(initial = null)
             val pagerState = rememberPagerState(4)
             val coroutineScope = rememberCoroutineScope()
 
             // Auto scroll the pager
             LaunchedEffect(pagerState) {
-                viewModel.fetchHeadBanners("Head Banner")
+                viewModel.getHeader("Head Banner")
                 while (true) {
                     delay(3000L)
-                    val nextPage = (pagerState.currentPage + 1) % headBanners?.data?.size!!
+                    val nextPage = (pagerState.currentPage + 1) % banners?.data?.size!!
                     pagerState.animateScrollToPage(nextPage)
                 }
             }
@@ -134,7 +136,7 @@ import javax.inject.Inject
                     .fillMaxWidth()
             ) { page ->
                 AsyncImage(
-                    model = headBanners?.data?.get(page)?.bannerImage,
+                    model = banners?.data?.get(page)?.bannerImage,
                     contentDescription = "Sample Image",
                     modifier = Modifier
                         .fillMaxWidth()

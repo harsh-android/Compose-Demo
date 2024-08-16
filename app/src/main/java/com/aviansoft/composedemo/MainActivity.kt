@@ -29,6 +29,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -44,6 +47,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aviansoft.composedemo.API.viewModel.MainViewModel
+import com.aviansoft.composedemo.Model.HeadBannerModel
 //import com.aviansoft.composedemo.HomePage.Companion.HomeScreen
 import com.aviansoft.composedemo.MorePage.Companion.MoreScreen
 import com.aviansoft.composedemo.NewCarPage.Companion.NewCarScreen
@@ -89,7 +94,6 @@ fun MainContent() {
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-
     val items = listOf(
         Screen.Home,
         Screen.NewCar,
@@ -152,7 +156,6 @@ fun RowScope.AddItem(
                 Color.White
             else
                 Color.Black
-
     val contentColor =
         if (selected)
             if (isSystemInDarkTheme())

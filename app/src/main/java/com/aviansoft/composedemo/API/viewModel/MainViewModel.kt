@@ -1,5 +1,7 @@
 package com.aviansoft.composedemo.API.viewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aviansoft.composedemo.API.repository.Repository
@@ -11,14 +13,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
 
-    private val _headBanners = MutableStateFlow<HeadBannerModel?>(null)
-    val headBanners: StateFlow<HeadBannerModel?> = _headBanners
+    private val repository = Repository()
 
-    fun fetchHeadBanners(type:String) {
+    private val _data = MutableLiveData<HeadBannerModel>()
+    val data: LiveData<HeadBannerModel> get() = _data
+
+
+    fun getHeader(type:String) {
         viewModelScope.launch {
-            _headBanners.value = repository.getHeadBanners(type)
+            _data.value = repository.getBanner(type).value
         }
     }
 }
