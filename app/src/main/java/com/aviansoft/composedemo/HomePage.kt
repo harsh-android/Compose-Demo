@@ -3,11 +3,11 @@
 package com.aviansoft.composedemo
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -35,9 +36,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,44 +49,35 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import com.aviansoft.composedemo.API.ApiInterface
+import com.aviansoft.composedemo.API.viewModel.MainViewModel
 import com.aviansoft.composedemo.Utils.Util
 import com.aviansoft.composedemo.ui.theme.ComposeDemoTheme
 import com.aviansoft.composedemo.ui.theme.PrimGradient1
 import com.aviansoft.composedemo.ui.theme.PrimGradient2
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.delay
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.layout.ContentScale
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
-import com.aviansoft.composedemo.API.ApiInterface
-import com.aviansoft.composedemo.API.viewModel.MainViewModel
-import com.google.accompanist.pager.*
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 
-//class HomePage {
-//
-//    companion object {
+class HomePage {
+
+    companion object {
 
         @Inject
-        lateinit var api : ApiInterface
+        lateinit var api: ApiInterface
 
         private val TAG = "HomePage"
 
@@ -92,8 +87,6 @@ import javax.inject.Inject
         @Composable
         fun HomeScreen() {
 
-
-
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
@@ -102,16 +95,25 @@ import javax.inject.Inject
                     HomeHeader()
                     HomeHeadBanner()
 
+                    LazyRow {
 
+                        item {
+                            Box(modifier = Modifier.clip(CircleShape).background(color = Color.Black).padding(10.sdp,2.sdp,10.sdp,2.sdp)) {
+                                Text(text = "Hello", color = Color.White)
+                            }
+                        }
 
-                    Text(text = "Hello")
+                    }
+
                 }
             }
         }
 
 //        TODO Head Banner Start
 
-        private @Composable
+        @OptIn(ExperimentalPagerApi::class)
+        private
+        @Composable
         fun HomeHeadBanner() {
 
             var viewModel: MainViewModel = viewModel()
@@ -146,39 +148,21 @@ import javax.inject.Inject
                 )
             }
 
-
         }
 
-        val imageList = arrayListOf(
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/22/22_mob.webp"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/67/67_mob.webp"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/38/38_mob.webp"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://static.caronphone.com/public/Banner/29/29_mob.webp"
-            )
-        )
         data class ImageItem(
-            val id : String,
-            val url : String
+            val id: String,
+            val url: String
         )
 
 //        Head Banner End
 
 
-//        TODO Heder Start
+//        TODO Header Start
 
         @ExperimentalMaterial3Api
-        private @Composable
+        private
+        @Composable
         fun HomeHeader() {
 
             var boxSize by remember { mutableStateOf(Offset.Zero) }
@@ -205,9 +189,11 @@ import javax.inject.Inject
             ) {
 
 
-                Row(modifier = Modifier.padding(10.sdp),
+                Row(
+                    modifier = Modifier.padding(10.sdp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
                     Image(
                         modifier = Modifier.size(110.sdp, 30.sdp),
@@ -244,11 +230,6 @@ import javax.inject.Inject
                     }
 
                 }
-
-
-
-
-
 
                 Row(
                     modifier = Modifier
@@ -307,14 +288,14 @@ import javax.inject.Inject
 
 //        Header End
 
-//    }
+    }
 
-//    @Preview(showBackground = true)
-//    @Composable
-//    fun GreetingPreview() {
-//        ComposeDemoTheme {
-//            HomeScreen()
-//        }
-//    }
-//}
+    @Preview(showBackground = true)
+    @Composable
+    fun GreetingPreview() {
+        ComposeDemoTheme {
+            HomeScreen()
+        }
+    }
+}
 

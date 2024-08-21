@@ -18,6 +18,8 @@ class Util {
         val OTP_BASE_URL = ""
         val countryCode = "91"
 
+        val mail = ""
+
 
         fun GradientWithAngleExample(angleDegrees: Float): Pair<Offset, Offset> {
             // Convert angle to radians

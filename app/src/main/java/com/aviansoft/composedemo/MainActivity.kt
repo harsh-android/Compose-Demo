@@ -48,6 +48,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aviansoft.composedemo.API.viewModel.MainViewModel
+import com.aviansoft.composedemo.HomePage.Companion.HomeScreen
 import com.aviansoft.composedemo.Model.HeadBannerModel
 //import com.aviansoft.composedemo.HomePage.Companion.HomeScreen
 import com.aviansoft.composedemo.MorePage.Companion.MoreScreen
@@ -115,7 +116,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 }
             )
     ) {
-
 
         Row(
             modifier = Modifier
